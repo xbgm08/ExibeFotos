@@ -1,11 +1,24 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { 
+  Pressable,
+  StyleSheet, 
+  Text, 
+  View 
+} from 'react-native';
 
-export default function App() {
+export default function App() { 
   return (
     <View style={styles.container}>
-      <Text>Aplicativo de Exibição de Fotos de Gatos</Text>
-      <StatusBar style="auto" />
+      <Text style={styles.titulo}>Aplicativo de Exibição de Fotos de Gatos</Text><br/>
+      <Pressable
+        style={styles.button}
+        // onPress={função que vai acionar o consumo da api}  
+        >
+        <Text
+          style={styles.buttonText}>          
+          Exibir fotos
+        </Text>
+      </Pressable>
     </View>
   );
 }
@@ -15,6 +28,21 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#fff',
     alignItems: 'center',
-    justifyContent: 'center',
+  },  
+  titulo: {
+    color: 'red',
+    alignItems: 'center',
+    fontFamily: 'fantasy',
   },
+  button:{ 
+    width: '80%',
+    backgroundColor: '#0096F3', 
+    padding: 8,
+    borderRadius: 4,
+    marginBottom: 4,
+  },
+  buttonText:{
+    color: 'white',
+    textAlign: 'center'
+  },  
 });
