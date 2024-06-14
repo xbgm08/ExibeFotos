@@ -91,7 +91,7 @@ const styles = StyleSheet.create({
   },
   list: {
     borderWidth: 1,
-    borderColor: 'lightgray',
+    borderColor: 'lightgray', 
     width: '80%',
     borderRadius: 4,
     marginBottom: 8,
@@ -108,8 +108,10 @@ const styles = StyleSheet.create({
     display: 'flex'    
   },
   listItemImage: {
-    width: 300,
+    width: 300, 
     height: 300,
-    resizeMode: 'stretch',  
+    resizeMode: 'stretch',    
+    flexGrow: 1,
+    flexBasis: 200,
   },
 });
