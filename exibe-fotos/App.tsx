@@ -8,6 +8,10 @@ import {
   Image
 } from 'react-native';
 import { useState } from 'react';
+import dotenv from 'dotenv';
+
+const CAT_KEY = process.env.CAT_KEY;
+const api_url = `https://api.thecatapi.com/v1/images/search?limit=5&api_key=${CAT_KEY}`;
 
 interface Imagem {
   id?: string;
@@ -17,20 +21,30 @@ interface Imagem {
 export default function App() {
   const [imagens, setImagens] = useState<Imagem[]>([])
 
+  const exbirFotos = () => {
+    fetch(api_url)
+    .then((response) => {
+      return response.json();
+    })
+    .then((data) => {
+      setImagens(imagensAnteriores => [...imagensAnteriores, ...data]);
+    })
+  }
+
   return (
     <View style={styles.container}>
       <Text style={styles.titulo}>Aplicativo de Exibição de Fotos de Gatos</Text><br />
       <Pressable
         style={styles.button}
-      // onPress={função que vai acionar o consumo da api}  
+        onPress={exbirFotos}
       >
         <Text
           style={styles.buttonText}>
           Exibir fotos
         </Text>
-      </Pressable>
+      </Pressable>  
 
-      {imagens.length > 0 ?? 
+      {imagens.length > 0 &&
         <FlatList
           style={styles.list}
           keyExtractor={item => item.id!}
@@ -40,10 +54,11 @@ export default function App() {
               style={styles.listItem}>
               <Image
                 style={styles.listItemImage}
+                key = {imagem.item.id}
                 source={{
                   uri: imagem.item.url,
                 }}
-              />              
+              />
             </View>
           )}
         />
@@ -79,18 +94,22 @@ const styles = StyleSheet.create({
     borderColor: 'lightgray',
     width: '80%',
     borderRadius: 4,
-    marginBottom: 8
+    marginBottom: 8,
   },
   listItem: {
-    padding: 12,
+    padding: 8,
     borderBottomWidth: 1,
     borderBlockColor: 'gray',
-    borderRadius: 8,
+    borderRadius: 6,
     backgroundColor: '#F0F0F0',
-    margin: 8,
+    margin: 6,
     flexDirection: 'row',
-    alignItems: 'center'
+    alignItems: 'center',
+    display: 'flex'    
   },
   listItemImage: {
+    width: 300,
+    height: 300,
+    resizeMode: 'stretch',  
   },
 });
